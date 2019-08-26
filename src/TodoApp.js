@@ -92,7 +92,9 @@ export class TodoApp extends React.Component {
         };
         this.setState(prevState => ({
             items: prevState.items.concat(newItem),
-            text: ''
+            text: "",
+            priority: "",
+            dueDate: ""
         }));
     }
 }
