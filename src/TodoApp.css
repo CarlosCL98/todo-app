@@ -1,16 +1,40 @@
+.title {
+    text-align: center;
+    padding: 2% 0 0 0;
+}
+
 .TodoApp {
     text-align: center;
-    padding: 5% 0 0 0;
 }
 
-h3 {
-    padding: 0 0 5% 0;
+.paper {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.UlItem{
+ul {
+    text-align: left !important;
+}
+
+li{
     list-style-type: none;
 }
 
-.PTodo {
-    text-align: left !important;
+.form {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.submitButton {
+    padding: 0 0 4% 0;
+}
+
+.expansionPanelDetail {
+    background-color: #97C7F1;
+}
+
+.appBar {
+    color: #C1F344;
 }
