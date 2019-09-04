@@ -14,13 +14,14 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleSignIn = this.handleSignIn.bind(this);
+        this.state = {isLoggedIn: localStorage.getItem("isLoggedIn")};
         this.LoginView = () => (
-            <Login/>
+            <Login handler={this.handleSignIn} />
         );
         this.TodoView = () => (
             <TodoApp />
         );
-        this.state = {isLoggedIn: false};
     }
 
     render () {
@@ -36,10 +37,13 @@ class App extends React.Component {
                                 TODO React App
                             </Typography>
                             <Typography className="links" variant="h8">
-                                <Link to="/">Login</Link>
+                                {this.state.isLoggedIn === "true" ?
+                                    <Link to="/todo">Log out</Link> :
+                                    <Link to="/">Log in</Link>
+                                }
                             </Typography>
                             <Typography className="links" variant="h8">
-                                {this.state.isLoggedIn ?
+                                {this.state.isLoggedIn === "true" ?
                                     <Link to="/todo">TodoApp</Link> :
                                     <Link to="/">TodoApp</Link>
                                 }
@@ -47,7 +51,7 @@ class App extends React.Component {
                         </Toolbar>
                     </AppBar>
                     <div>
-                        {this.state.isLoggedIn ?
+                        {this.state.isLoggedIn === "true" ?
                             <Route path="/todo" component={this.TodoView}/> :
                             <Route exact path="/" component={this.LoginView}/>
                         }
@@ -55,6 +59,13 @@ class App extends React.Component {
                 </div>
             </Router>
         );
+    }
+
+    handleSignIn(e) {
+        this.setState(prevState => ({
+            isLoggedIn: e.toString()
+        }));
+        localStorage.setItem("isLoggedIn", e);
     }
 }
 

@@ -12,6 +12,17 @@ import './Login.css'
 
 export class Login extends React.Component {
 
+    constructor(props){
+        super(props);
+        this.state = {email:"", password:""};
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        //Save data
+        localStorage.setItem("email", "carlos.medina@gmail.com");
+        localStorage.setItem("password", "carlos.medina");
+        localStorage.setItem("isLoggedIn", "false");
+    }
+
     render() {
         return (
             <React.Fragment>
@@ -22,10 +33,16 @@ export class Login extends React.Component {
                             <LockIcon/>
                         </Avatar>
                         <Typography variant="headline">Sign in</Typography>
-                        <form className="form">
+                        <form className="form" onSubmit={this.handleSubmit}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" autoComplete="email" autoFocus/>
+                                <Input
+                                    id="email"
+                                    name="email"
+                                    autoComplete="email"
+                                    value={this.state.email}
+                                    onChange={this.handleChange}
+                                    autoFocus/>
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -33,6 +50,8 @@ export class Login extends React.Component {
                                     name="password"
                                     type="password"
                                     id="password"
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
                                     autoComplete="current-password"
                                 />
                             </FormControl>
@@ -50,5 +69,32 @@ export class Login extends React.Component {
                 </main>
             </React.Fragment>
         );
+    }
+
+    handleChange(e) {
+        if (e.target.id === "email") {
+            this.setState({email: e.target.value});
+        } else if (e.target.id === "password") {
+            this.setState({password: e.target.value});
+        }
+    }
+
+    handleSubmit(e){
+        e.preventDefault();
+        if (!this.state.email.length || !this.state.password.length) {
+            return;
+        }
+        //Read data
+        const emailStored = localStorage.getItem("email");
+        const passwordStored = localStorage.getItem("password");
+        if (emailStored === this.state.email && passwordStored === this.state.password){
+            this.props.handler(true);
+        } else {
+            this.props.handler(false);
+        }
+        this.setState(prevState => ({
+            email: "",
+            password: ""
+        }));
     }
 }

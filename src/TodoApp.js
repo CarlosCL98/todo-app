@@ -66,6 +66,7 @@ export class TodoApp extends React.Component {
                         <div className="col-md-2"></div>
                     </div>
                     <TodoList items={this.state.items}/>
+                    <div id="footer"></div>
                 </div>
                 <div className="col-md-4"></div>
             </div>
